@@ -110,13 +110,13 @@
               green (byte-to-ubyte (second pixel))
               blue (byte-to-ubyte (last pixel))]
           (q/set-pixel im y x (q/color red green blue)))))
-    (q/image im 0 0) ;; Actually draw the image.
-    (q/frame-rate 0))) ;; Stop drawing, we only need to draw the image once.
+    (q/image im 0 0))) ;; Actually draw the image.
 
 (defn -main [& args]
   (q/defsketch ppm
   :title "PPM Image"
   :settings #(q/smooth 2)
+  :features [:exit-on-close]
   :setup setup
   :draw draw
   :size img-size))
