@@ -14,11 +14,10 @@
   (file-to-bytes \"TEST_FILE.txt\") => '(97 98 99 13 10 100 101 102 13 10 103 ...)"
   [file-path]
   (let [f (java.io.File. file-path)
-        ary (byte-array (.length f))
-        is (java.io.FileInputStream. f)]
-    (.read is ary)
-    (.close is)
-    (seq ary)))
+        ary (byte-array (.length f))]
+    (with-open [stream (java.io.FileInputStream. f)]
+      (.read stream ary)
+      (seq ary))))
 
 ;; We will need this little helper function, as PPM files contain values between 0 and 255
 ;; but java.lang.Byte holds values between -128 and +128.
